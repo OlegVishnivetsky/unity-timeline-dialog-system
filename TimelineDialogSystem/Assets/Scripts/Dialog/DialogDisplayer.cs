@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -5,24 +6,32 @@ public class DialogDisplayer : MonoBehaviour
 {
     [Header("Dialog UI Components")]
     [SerializeField] private GameObject dialogPanel;
+
     [SerializeField] private TMP_Text dialogName;
     [SerializeField] private TMP_Text dialogDescription;
 
-    public void SetUpDialog(string name, string description)
+    public Action<AudioClip> OnMaxVisibleCharactersSet;
+
+    public int GetDescriptionMaxVisibleCharacters()
     {
-        dialogName.text = name;
-        dialogDescription.text = description;
+        return dialogDescription.maxVisibleCharacters;
     }
 
     public void SetDescriptionMaxVisibleCharacters(int value)
     {
         dialogDescription.maxVisibleCharacters = value;
     }
+
+    public void SetUpDialog(DialogCharacter dialogCharacter, string description)
+    {
+        dialogName.text = dialogCharacter.Name;
+        dialogDescription.text = description;
+    }
 }
 
 [System.Serializable]
 public struct DialogSentence
 {
-    public string Name;
+    public DialogCharacter dialogCharacter;
     public string Description;
 }

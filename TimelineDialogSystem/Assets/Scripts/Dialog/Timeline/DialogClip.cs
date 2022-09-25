@@ -6,6 +6,12 @@ public class DialogClip : PlayableAsset, ITimelineClipAsset
 {
     [SerializeField] private DialogSentence dialogSentence;
 
+    [Space(5)]
+    [SerializeField] private float charPerSecond;
+
+    [Tooltip("If it false, char delay will be depend on your clip length")]
+    [SerializeField] private bool isUseCustomCharDelay;
+
     public ClipCaps clipCaps
     {
         get { return ClipCaps.None; }
@@ -17,6 +23,8 @@ public class DialogClip : PlayableAsset, ITimelineClipAsset
 
         DialogBehaviour dialogBehaviour = playable.GetBehaviour();
         dialogBehaviour.dialogSentence = dialogSentence;
+        dialogBehaviour.charPerSecond = charPerSecond;
+        dialogBehaviour.isUseCustomCharDelay = isUseCustomCharDelay;
 
         return playable;
     }
